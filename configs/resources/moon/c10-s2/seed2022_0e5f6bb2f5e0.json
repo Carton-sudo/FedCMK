@@ -1,0 +1,64 @@
+{
+  "data_setups": {
+    "root": "data",
+    "dataset_name": "cifar10",
+    "batch_size": 50,
+    "n_clients": 100,
+    "partition": {
+      "method": "sharding",
+      "shard_per_user": 2,
+      "seed": 19940817,
+      "index_path": "assets/partitions/6ca67a7affc0_c10-s2.json"
+    }
+  },
+  "train_setups": {
+    "algo": {
+      "name": "moon",
+      "params": {
+        "mu": 0.1,
+        "tau": 0.5,
+        "local_metrics_enabled": false,
+        "server_eval_interval": 5,
+        "server_eval_dense_start_round": 351
+      }
+    },
+    "scenario": {
+      "n_rounds": 400,
+      "sample_ratio": 0.5,
+      "local_epochs": 5,
+      "device": "mps"
+    },
+    "model": {
+      "name": "fedavg_cifar",
+      "params": {}
+    },
+    "optimizer": {
+      "params": {
+        "lr": 0.01,
+        "momentum": 0.9,
+        "weight_decay": 1e-05
+      }
+    },
+    "scheduler": {
+      "enabled": true,
+      "name": "step",
+      "params": {
+        "gamma": 0.99,
+        "step_size": 1
+      }
+    },
+    "seed": 2022,
+    "logging": {
+      "output_dir": "runs/resources/moon/c10-s2/seed2022_0e5f6bb2f5e0",
+      "client_schedule_path": "assets/client_schedules/2466c01ba0b7_k50_schedule.json",
+      "checkpoint_interval": 0,
+      "save_model_artifacts": false,
+      "overwrite_output": false
+    }
+  },
+  "wandb_setups": {
+    "project": "FedCMK",
+    "group": "resources",
+    "name": "moon_c10-s2_2022"
+  }
+}

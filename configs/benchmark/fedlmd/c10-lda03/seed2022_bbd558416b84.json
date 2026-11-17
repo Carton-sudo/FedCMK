@@ -1,0 +1,63 @@
+{
+  "data_setups": {
+    "root": "data",
+    "dataset_name": "cifar10",
+    "batch_size": 50,
+    "n_clients": 100,
+    "partition": {
+      "method": "lda",
+      "shard_per_user": 2,
+      "alpha": 0.3,
+      "seed": 19940817,
+      "index_path": "assets/partitions/697428c089f2_c10-lda03.json"
+    }
+  },
+  "train_setups": {
+    "algo": {
+      "name": "fedlmd",
+      "params": {
+        "tau": 1,
+        "beta": 1,
+        "local_metrics_enabled": false,
+        "server_eval_interval": 5,
+        "server_eval_dense_start_round": 351
+      }
+    },
+    "scenario": {
+      "n_rounds": 400,
+      "sample_ratio": 0.1,
+      "local_epochs": 5,
+      "device": "mps"
+    },
+    "model": {
+      "name": "fedavg_cifar",
+      "params": {}
+    },
+    "optimizer": {
+      "params": {
+        "lr": 0.01,
+        "momentum": 0.9,
+        "weight_decay": 1e-05
+      }
+    },
+    "scheduler": {
+      "enabled": true,
+      "name": "step",
+      "params": {
+        "gamma": 0.99,
+        "step_size": 1
+      }
+    },
+    "seed": 2022,
+    "logging": {
+      "output_dir": "runs/benchmark/fedlmd/c10-lda03/seed2022_bbd558416b84",
+      "client_schedule_path": "assets/client_schedules/34893c041eea_shared_400r_n100_k10.json",
+      "checkpoint_interval": 50
+    }
+  },
+  "wandb_setups": {
+    "project": "FedCMK",
+    "group": "benchmark",
+    "name": "fedlmd_c10-lda03_2022"
+  }
+}
